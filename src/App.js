@@ -9,11 +9,20 @@ function App() {
   const [input,setInput]=useState('London')
   const [city,setCity]=useState('London')
 
-  useEffect(()=>{
-    let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${ApiKey}&units=metric`
-    fetch(url).then(res => res.json()).then(data => setWeather(data.list[0].main))
+  useEffect(()=> {
+    const fetchWeather = async()=> {
+      let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${ApiKey}&units=metric`
+       try{
+         let result = await fetch(url);
+         let data = await result.json()
+         setWeather(data.list[0].main)
+       }
+       catch(err){
+         console.log(err)
+       }
+    }
+     fetchWeather();
   },[city])
-  console.log(weather)
 
   const changeCity =(e)=>{
       e.preventDefault()
@@ -38,7 +47,6 @@ function App() {
         { weather && <div className="weather-main">
           <h4>Temp : {weather.temp} °C</h4>
           <h5>Feels like : {weather.feels_like} °C</h5>
-          <h6></h6>
         </div>}
       </div>
     </div>

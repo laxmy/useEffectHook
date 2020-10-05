@@ -2,8 +2,6 @@ import React,{useEffect, useState} from 'react';
 import './App.css';
 export const WeatherUrlPrefix = 'https://api.openweathermap.org/data/2.5/forecast'
 
-const ApiKey = 'df9364ba64956cc49b082ee2fdca8833'
-
 function App() {
   const [weather, setWeather] = useState({})
   const [input,setInput]=useState('London')
